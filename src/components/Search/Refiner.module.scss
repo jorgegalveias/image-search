@@ -1,0 +1,16 @@
+.refiner{
+    width: 100%;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-flow: row wrap;
+    flex: 0 0 auto;
+
+    .sort{
+        padding: 0.5rem;
+        border-radius: 3px;
+        border: 1px solid #c8c8c8;
+        min-width: 100px;
+    }
+}

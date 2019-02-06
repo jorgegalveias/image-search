@@ -1,0 +1,17 @@
+.pageNavigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    width: 28px;
+    border: 1px solid rgb(200, 200, 200);
+
+    &:hover{
+        cursor: pointer;
+        background: #e8e8e8;
+    }
+
+    &.active{
+        background: #e8e8e8;
+    }
+}

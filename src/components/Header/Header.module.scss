@@ -1,0 +1,21 @@
+.header{
+    width: 100%;
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+
+    h1{
+        font-weight: 400;
+        font-size: 30px;
+        line-height: 1.4;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        word-wrap: normal;
+        border: 0;
+        margin: 0;
+        padding: 0.7rem 1rem;
+    }
+}

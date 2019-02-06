@@ -1,0 +1,39 @@
+.pagination{
+    width: 100%;
+    margin: 0.5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row wrap;
+    flex: 0 0 auto;
+
+    .nav{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 28px;
+        width: 28px;
+        border: 1px solid rgb(200,200,200);
+
+        & + .nav{
+            border-left: none;
+        }
+    }
+
+    .previous{
+        border-radius: 8px 0 0 8px;
+    }
+
+    .next{
+        border-radius: 0 8px 8px 0;
+    }
+
+    .page{
+        background: #e8e8e8;
+    }
+
+    .disable{
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}

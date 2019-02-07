@@ -1,0 +1,17 @@
+.root {
+    border: 3px solid #e1e1e1;
+    border-top: 3px solid #474747;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

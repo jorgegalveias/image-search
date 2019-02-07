@@ -1,39 +1,41 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import styles from './Refiner.module.scss';
 
-export class Refiner extends PureComponent {
-    constructor(props) {
-        super(props);
+import search from '../../state/search';
+const { SORT_BY, SORT_BY_TEXT } = search.constants;
 
-        this.state = {
-            value: 'placeholder',
-        }
-    }
-
+class Refiner extends PureComponent {
     onChange = (event) => {
-        console.log('value', event.target.value);
-        this.setState({ value: event.target.value });
+        this.props.setSortBy(event.target.value);
     }
 
+    renderOptions = () => (Object.keys(SORT_BY).map(key => <option key={key} value={key}>{SORT_BY_TEXT[key]}</option>))
 
     render() {
         return (
             <div className={styles.refiner} >
                 <select
-                    value={this.state.value}
+                    value={this.props.value || 'placeholder'}
                     onChange={this.onChange}
                     className={styles.sort}
                 >
-                    <option value='placeholder' hidden>Sort by</option>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
+                    <option key={'placeholder'} value='placeholder' hidden>Sort by</option>
+                    {this.renderOptions()}
                 </select>
             </div>
         );
     }
 }
 
-export default Refiner;
+const mapStateToProps = (state, ownProps) => ({
+    value: search.selectors.getSortBy(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setSortBy: (sort) => dispatch(search.actions.setSortBy(sort)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Refiner);
 

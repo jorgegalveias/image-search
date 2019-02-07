@@ -1,17 +1,35 @@
-.pageNavigation {
+.root {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 28px;
     width: 28px;
+    background: #ffffff;
     border: 1px solid rgb(200, 200, 200);
+    text-decoration: none;
+    color: #333;
 
     &:hover{
         cursor: pointer;
         background: #e8e8e8;
+        text-decoration: none;
     }
 
     &.active{
         background: #e8e8e8;
     }
+
+    &.disabled{
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    &.prev{
+        border-radius: 8px 0 0 8px;
+    }
+
+    &.next{
+        border-radius: 0 8px 8px 0;
+    }
+
 }

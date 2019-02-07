@@ -1,89 +1,65 @@
 import React, { PureComponent } from 'react';
-import classNames from 'classnames';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import styles from './Pagination.module.scss';
 import { PageNavigation } from './PageNavigation';
 
-export class Pagination extends PureComponent {
-    constructor(props) {
-        super(props);
+import search from '../../state/search';
 
-        this.state = {
-            firstPageId: 0,
-            pageId: 1,
-            itemsPerPage: 10,
-            totalItems: 90,
-        }
+class Pagination extends PureComponent {
+
+    getPages = (start, end) => {
+        return Array(end || 10 - start + 1).fill().map((item, index) => start + index);
     }
-
-    goToPreviousPage = () => {
-        if (this.state.pageId - 1 >= this.state.firstPageId) {
-            this.setState(
-                (prevState) => ({ pageId: prevState.pageId - 1 }),
-                () => this.navegateToPage(this.state.pageId)
-            );
-        }
-    }
-
-    goToNextPage = () => {
-        const maxPageNumber = this.getNumberOfPages();
-        const { pageId } = this.state;
-
-        if (pageId + 1 <= maxPageNumber) {
-            this.setState(
-                (prevState) => ({ pageId: prevState.pageId + 1 }),
-                () => this.navegateToPage(this.state.pageId)
-            );
-        }
-    }
-
-    navegateToPage = (pageId) => {
-        console.log('pageId', pageId);
-        this.setState({ pageId: pageId });
-    }
-
-    getNumberOfPages = () => (Math.ceil(this.state.totalItems / this.state.itemsPerPage))
 
     getNavigation = () => {
-        const totalNav = this.getNumberOfPages();
-        const nav = [];
+        const end = this.props.totalPages;
+        const pages = this.getPages(1, end)
 
-        for (let pageId = 0; pageId <= totalNav; pageId++) {
-            nav.push(<PageNavigation
-                key={pageId}
-                id={pageId}
-                active={pageId === this.state.pageId}
-                displayValue={pageId + 1}
-                onClick={this.navegateToPage}
-            />)
-        }
-
-        return nav;
+        return pages.map(pageId => (<PageNavigation
+            key={pageId}
+            id={pageId}
+            active={pageId === this.props.page}
+            text={pageId}
+        />))
     }
 
     render() {
-        const maxPageNumber = this.getNumberOfPages();
+        if (!this.props.totalPages || this.props.totalPages <= 1) {
+            return null;
+        }
 
         return (
             <div className={styles.pagination}>
-                <div
-                    className={classNames(styles.previous, styles.nav, this.state.pageId === this.state.firstPageId && styles.disable)}
-                    onClick={this.goToPreviousPage}
-                >
-                    <FontAwesomeIcon icon='arrow-left' fixedWidth className={styles.icon} />
-                </div>
+                <PageNavigation
+                    prev
+                    page={this.props.page}
+                    totalPages={this.props.totalPages}
+                    className={styles.nav}
+                />
                 {this.getNavigation()}
-                <div
-                    className={classNames(styles.next, styles.nav, this.state.pageId === maxPageNumber && styles.disable)}
-                    onClick={this.goToNextPage}
-                >
-                    <FontAwesomeIcon icon='arrow-right' fixedWidth className={styles.icon} />
-                </div>
+                <PageNavigation
+                    next
+                    page={this.props.page}
+                    totalPages={this.props.totalPages}
+                    className={styles.nav}
+                />
             </div>
         );
     }
 }
 
-export default Pagination;
+PageNavigation.propTypes = {
+    page: PropTypes.number,
+    totalPages: PropTypes.number,
+    perPage: PropTypes.number,
+}
+
+const mapStateToProps = (state) => ({
+    totalPages: search.selectors.getTotalPages(state),
+    perPage: search.selectors.getItemsPerPage(state),
+});
+
+export default connect(mapStateToProps)(Pagination);
 

@@ -1,0 +1,53 @@
+.imageCard {
+    background-color: #fff;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+    border-radius: 2px;
+    cursor: pointer;
+
+    .image {
+        width: 100%;
+        height: auto;
+
+        img{
+            object-fit: contain;
+            width: 100%;
+            height: auto;
+        }
+
+    }
+
+    .meta {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0.5rem;
+    }
+
+    .userPhoto{
+        border-radius: 50%;
+    }
+
+    .credits{
+        padding: 0 0.5rem 0 1rem;
+        margin: 0;;
+        display: flex;
+        flex-flow: row wrap;
+        flex: 1 1;
+
+        a{
+            color: #000;
+            font-weight: 500;
+        }
+    }
+
+    .date{
+        color: rgb(180,180,180);
+        font-size: 11px;
+        padding: 0.5rem;
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+}

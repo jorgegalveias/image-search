@@ -5,9 +5,9 @@ import { getSearchTerm, getItemsPerPage, getImages } from './selectors';
 import Unsplash from 'unsplash-js';
 
 const unsplash = new Unsplash({
-    applicationId: process.env.REACT_APP_APP_ACCESS_KEY,
-    secret:  process.env.REACT_APP_APP_SECRET,
-    callbackUrl: process.env.REACT_APP_CALLBACK_URL
+    applicationId: process.env.REACT_APP_UNSPLASH_APP_ACCESS_KEY,
+    secret:  process.env.REACT_APP_UNSPLASH_APP_SECRET_KEY,
+    callbackUrl: process.env.REACT_APP_UNSPLASH_APP_CALLBACK_URL
 });
 
 export const setSortBy = (sortBy) => ({
